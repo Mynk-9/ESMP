@@ -101,8 +101,6 @@ namespace ninth_sky
                 else
                     carry = 0;
 
-                std::cout << tmp << "\n";
-
                 answer.appendLeft(tmp);
                 tmp = 0;
             }
