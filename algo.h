@@ -16,14 +16,17 @@ limitations under the License.
 
 */
 
+#ifndef ERROR_SUBMISSION_9THSKY
+#include "error_submission.h"
+#endif
+
 #ifndef ALGORITHMS_9THSKY
 #define ALGORITHMS_9THSKY
 
-
-namespace ninth_sky
-{
-	/// code goes here
-}
+/**
+*	@brief		first section will include searching algorithms
+*/
+#include "search_algo.h"
 
 
 #endif

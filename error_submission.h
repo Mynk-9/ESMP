@@ -16,23 +16,23 @@ limitations under the License.
 
 */
 
-#ifndef NINTHSKY_9THSKY
-#define NINTHSKY_9THSKY
+#ifndef ERROR_SUBMISSION_9THSKY
+#define ERROR_SUBMISSION_9THSKY
 
-/**
-*	@brief	Will include all other headers.
-*/
+#include <string>
 
 namespace ninth_sky
 {
-	/**
-	*	@brief	Declaration for the namespace ninth_sky
-	*/
+	struct error_submission
+	{	
+		void submit_error_console (std::string err)
+		{
+			std::cout << "Some critical error has occured in the Ninth Sky Library. See the details below: \n" << err;
+			std::cout << std::endl;
+			return void();
+		}
+	} error_report;
 }
 
-#include "error_submission.h"
-#include "scientific.h"
-#include "graph.h"
-#include "algo.h"
 
 #endif
