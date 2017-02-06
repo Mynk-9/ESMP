@@ -24,14 +24,14 @@ limitations under the License.
 
 namespace ninth_sky
 {
-	struct error_submission
-	{
-	    bool debug_writer_enabled = false;
-	    bool debug_write_to_file = false;
-	    bool error_write_to_file = false;
-		void submit_error (std::string err)
-		{
-		    if (error_write_to_file)
+    struct error_submission
+    {
+        bool debug_writer_enabled = false;
+        bool debug_write_to_file = false;
+        bool error_write_to_file = false;
+        void submit_error (std::string err)
+        {
+            if (error_write_to_file)
             {
                 std::ofstream out;
                 out.open ("ERROR_REPORT.txt", std::ios_base::app);
@@ -44,11 +44,11 @@ namespace ninth_sky
                 std::cout << "Some critical error has occured in the Ninth Sky Library. See the details below: \n\n" << err;
                 std::cout << std::endl;
             }
-			return void();
-		}
-		void debug_write (auto dbug)
-		{
-			if (debug_writer_enabled)
+            return void();
+        }
+        void debug_write (auto dbug)
+        {
+            if (debug_writer_enabled)
             {
                 if (debug_write_to_file)
                 {
@@ -63,9 +63,9 @@ namespace ninth_sky
                     std::cout << "Debug (Ninth Sky Library): " << dbug << std::endl;
                 }
             }
-			return void();
-		}
-	} error_report;
+            return void();
+        }
+    } error_report;
 }
 
 

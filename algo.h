@@ -24,11 +24,11 @@ limitations under the License.
 #define ALGORITHMS_9THSKY
 
 /**
-*	@brief		include searching algorithms
+*    @brief        include searching algorithms
 */
 #include "search_algo.h"
 /**
-*	@brief		include graph algorithms
+*    @brief        include graph algorithms
 */
 #include "graph_algo.h"
 

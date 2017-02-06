@@ -20,14 +20,14 @@ limitations under the License.
 #define NINTHSKY_9THSKY
 
 /**
-*	@brief	Will include all other headers.
+*    @brief    Will include all other headers.
 */
 
 namespace ninth_sky
 {
-	/**
-	*	@brief	Declaration for the namespace ninth_sky
-	*/
+    /**
+    *    @brief    Declaration for the namespace ninth_sky
+    */
 }
 
 #include "error_submission.h"
