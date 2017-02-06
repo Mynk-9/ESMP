@@ -20,17 +20,17 @@ limitations under the License.
 #include "error_submission.h"
 #endif
 
-#ifndef ALGORITHMS_9THSKY
-#define ALGORITHMS_9THSKY
+#ifndef GRAPH_ALGO_9THSKY
+#define GRAPH_ALGO_9THSKY
 
-/**
-*	@brief		include searching algorithms
-*/
-#include "search_algo.h"
-/**
-*	@brief		include graph algorithms
-*/
-#include "graph_algo.h"
+#include "graph.h"
+
+namespace ninth_sky
+{
+	/*
+	*	add dijkstra's algo, bellman-ford algo.
+	*/
+}
 
 
 #endif

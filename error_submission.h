@@ -20,15 +20,49 @@ limitations under the License.
 #define ERROR_SUBMISSION_9THSKY
 
 #include <string>
+#include <fstream>
 
 namespace ninth_sky
 {
 	struct error_submission
-	{	
-		void submit_error_console (std::string err)
+	{
+	    bool debug_writer_enabled = false;
+	    bool debug_write_to_file = false;
+	    bool error_write_to_file = false;
+		void submit_error (std::string err)
 		{
-			std::cout << "Some critical error has occured in the Ninth Sky Library. See the details below: \n" << err;
-			std::cout << std::endl;
+		    if (error_write_to_file)
+            {
+                std::ofstream out;
+                out.open ("ERROR_REPORT.txt", std::ios_base::app);
+                out << "Some critical error has occured in the Ninth Sky Library. See the details below: \n\n";
+                out << err << "\n\n";
+                out.flush();
+            }
+            else
+            {
+                std::cout << "Some critical error has occured in the Ninth Sky Library. See the details below: \n\n" << err;
+                std::cout << std::endl;
+            }
+			return void();
+		}
+		void debug_write (auto dbug)
+		{
+			if (debug_writer_enabled)
+            {
+                if (debug_write_to_file)
+                {
+                    std::ofstream out;
+                    out.open ("DEBUG_REPORT.txt", std::ios_base::app);
+                    out << "Debug (Ninth Sky Library): \n\n";
+                    out << dbug << "\n\n";
+                    out.flush();
+                }
+                else
+                {
+                    std::cout << "Debug (Ninth Sky Library): " << dbug << std::endl;
+                }
+            }
 			return void();
 		}
 	} error_report;

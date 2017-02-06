@@ -61,6 +61,7 @@ namespace ninth_sky
 				v.id = a;
 				v.initialised = true;
 				vertices[a] = v;
+				ninth_sky::error_report.debug_write("Adding new vertex: " + std::to_string(a));
 			}
 
 			/**
@@ -77,6 +78,8 @@ namespace ninth_sky
 				if (!vertices[v].initialised || !vertices[u].initialised)
 					return void();
 				vertices[v].neighbous.push_back({u, weight});
+				ninth_sky::error_report.debug_write
+                    ("Setting " + std::to_string(u) + " as a neighbour of " + std::to_string(v) + " with weight " + std::to_string(weight));
 			}
 
 			/**
