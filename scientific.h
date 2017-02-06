@@ -50,9 +50,10 @@ namespace ninth_sky
 			{
 				return this -> value.size();
 			}
-			void isNegative (bool yesno)
+			void setNegative (bool yesno)
 			{
-			    this -> negative = yesno;
+			    if (!this -> value.empty())
+                    this -> negative = yesno;
 			}
 			void assign (std::list <short int> lst)
 			{
@@ -110,7 +111,7 @@ namespace ninth_sky
 					}
 				}
 				if (number.substr(0, 1) == "-")
-                    this -> negative = true;
+                    this -> setNegative(true);
 			}
 			void operator = (const integer_xl& ixl)
 			{
@@ -245,7 +246,7 @@ namespace ninth_sky
 			{
 			    integer_xl _ixl;
 			    _ixl.assign(this -> value);
-			    _ixl.negative = this -> negative;
+			    _ixl.setNegative(this -> negative);
 			    if (_ixl == ixl)
                     return true;
                 else if (_ixl > ixl)
@@ -257,7 +258,7 @@ namespace ninth_sky
 			{
 			    integer_xl _ixl;
 			    _ixl.assign(this -> value);
-			    _ixl.negative = this -> negative;
+			    _ixl.setNegative(this -> negative);
 			    if (_ixl == ixl)
                     return true;
                 else if (_ixl < ixl)
@@ -324,7 +325,7 @@ namespace ninth_sky
 			    }*/
 
 				integer_xl answer;
-				answer.isNegative (this -> negative);
+				answer.setNegative(this -> negative);
 
 				bool carry =    0,
 					 swtch_i =  true,
