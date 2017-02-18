@@ -31,8 +31,8 @@ limitations under the License.
 namespace ninth_sky
 {
 	/**
-	*	@brief      This class include a scientific data type with extremely large
-	*               possible value calculations.
+	*	@brief	  This class include a scientific data type with extremely large
+	*			   possible value calculations.
 	*/
 	class integer_xl
 	{
@@ -44,12 +44,12 @@ namespace ninth_sky
 			void appendLeft (short int a, int counter = 1)
 			{
 				while (counter--)
-				    this -> value.push_front(a);
+					this -> value.push_front(a);
 			}
 			void appendRight (short int a, int counter = 1)
 			{
-			    while (counter--)
-			        this -> value.push_back(a);
+				while (counter--)
+					this -> value.push_back(a);
 			}
 			int length ()
 			{
@@ -61,7 +61,7 @@ namespace ninth_sky
 			}
 			bool isNegative ()
 			{
-			    return this -> negative;
+				return this -> negative;
 			}
 			void assign (std::list <short int> lst)
 			{
@@ -80,35 +80,35 @@ namespace ninth_sky
 			}
 			void refresh ()
 			{
-			    if (this -> value.empty())
+				if (this -> value.empty())
 				{
 					this -> setNegative(false);
 					return;
 				}
-			    auto i = this -> value.begin(),
-			         l = this -> value.end();
+				auto i = this -> value.begin(),
+					 l = this -> value.end();
 
-                for (; i != l; i++)
-                {
-                    if (*i == 0)
-                        this -> value.pop_front();
-                    else
-                        break;
-                }
+				for (; i != l; i++)
+				{
+					if (*i == 0)
+						this -> value.pop_front();
+					else
+						break;
+				}
 			}
 			void clear ()
 			{
-			    this -> value.clear();
-			    this -> setNegative(false);
+				this -> value.clear();
+				this -> setNegative(false);
 			}
 			std::string getString ()
 			{
-			    std::string str;
-			    auto i = this -> value.begin(),
-			         j = this -> value.end();
-                for (; i != j; i++)
-                    str += std::to_string (*i);
-                return str;
+				std::string str;
+				auto i = this -> value.begin(),
+					 j = this -> value.end();
+				for (; i != j; i++)
+					str += std::to_string (*i);
+				return str;
 			}
 
 			/**
@@ -116,7 +116,7 @@ namespace ninth_sky
 			*/
 			void operator = (const std::string number)
 			{
-			    short int magic_number = 48;	  /// used to convert char to int
+				short int magic_number = 48;	  /// used to convert char to int
 
 				this -> value.clear();
 				bool swtch = false;
@@ -294,125 +294,125 @@ namespace ninth_sky
 			*/
 			integer_xl operator - (integer_xl ixl)
 			{
-			    integer_xl answer, ths;
-			    ths.assign(this -> value);
-			    ths.setNegative(this -> isNegative());
+				integer_xl answer, ths;
+				ths.assign(this -> value);
+				ths.setNegative(this -> isNegative());
 
-			    /**
-			    *   We're going to substract ixl from ths, i.e, ths - ixl
-			    */
+				/**
+				*   We're going to substract ixl from ths, i.e, ths - ixl
+				*/
 
-			    /**
-			    *   @possibleCases  :   BOTH EQUAL
-                *                       +ve - +ve
-                *                       +ve - -ve
-                *                       -ve - +ve
-                *                       -ve - -ve
-			    */
+				/**
+				*   @possibleCases  :   BOTH EQUAL
+				*					   +ve - +ve
+				*					   +ve - -ve
+				*					   -ve - +ve
+				*					   -ve - -ve
+				*/
 
-			    if (ths.isNegative() == false)
-                {
-                    if (ixl.isNegative() == false)
-                    {
-                        ninth_sky::error_report.debug_write("case 1");
-                        /// x - y = x-y
+				if (ths.isNegative() == false)
+				{
+					if (ixl.isNegative() == false)
+					{
+						ninth_sky::error_report.debug_write("case 1");
+						/// x - y = x-y
 
-                        std::_List_iterator <short int> i, j, l1, l2;
-                        if (ths == ixl)
-                        {
-                            answer = "0";
-                            answer.refresh();
-                            return answer;
-                        }
-                        else if (ths > ixl)
-                        {
-                            i = ths.value.end();
-                            l1 = ths.value.begin();
-                            j = ixl.value.end();
-                            l2 = ixl.value.begin();
-                        }
-                        else
-                        {
-                            i = ixl.value.end();
-                            l1 = ixl.value.begin();
-                            j = ths.value.end();
-                            l2 = ths.value.begin();
-                            answer.setNegative();
-                        }
+						std::_List_iterator <short int> i, j, l1, l2;
+						if (ths == ixl)
+						{
+							answer = "0";
+							answer.refresh();
+							return answer;
+						}
+						else if (ths > ixl)
+						{
+							i = ths.value.end();
+							l1 = ths.value.begin();
+							j = ixl.value.end();
+							l2 = ixl.value.begin();
+						}
+						else
+						{
+							i = ixl.value.end();
+							l1 = ixl.value.begin();
+							j = ths.value.end();
+							l2 = ths.value.begin();
+							answer.setNegative();
+						}
 
-                        /// /////////////////////////// ///
-                        /// /////////////////////////// ///
-                        ///   Now we're supposed to     ///
-                        ///   substract (j, l2] from    ///
-                        ///   (i, l1].                  ///
-                        /// /////////////////////////// ///
-                        /// /////////////////////////// ///
+						/// /////////////////////////// ///
+						/// /////////////////////////// ///
+						///   Now we're supposed to     ///
+						///   substract (j, l2] from    ///
+						///   (i, l1].                  ///
+						/// /////////////////////////// ///
+						/// /////////////////////////// ///
 
-                        bool swtch_i = true,
-                             swtch_j = true,
-                             carry   = 0;
-                        short int tmp = 0;
+						bool swtch_i = true,
+							 swtch_j = true,
+							 carry   = 0;
+						short int tmp = 0;
 
-                        while (swtch_i || swtch_j)
-                        {
-                            if (swtch_i && i-- == l1)
-                                swtch_i = false;
-                            else if (swtch_i)
-                                tmp = *i;
+						while (swtch_i || swtch_j)
+						{
+							if (swtch_i && i-- == l1)
+								swtch_i = false;
+							else if (swtch_i)
+								tmp = *i;
 
-                            if (swtch_j && j-- == l2)
-                                swtch_j = false;
-                            else if (swtch_j)
-                                tmp -= *j;
+							if (swtch_j && j-- == l2)
+								swtch_j = false;
+							else if (swtch_j)
+								tmp -= *j;
 
-                            tmp -= carry;
+							tmp -= carry;
 
-                            if (tmp < 0)
-                            {
-                                carry = 1;
-                                tmp += 10;
-                            }
-                            else
-                                carry = 0;
+							if (tmp < 0)
+							{
+								carry = 1;
+								tmp += 10;
+							}
+							else
+								carry = 0;
 
-                            answer.appendLeft(tmp);
-                            tmp = 0;
-                        }
+							answer.appendLeft(tmp);
+							tmp = 0;
+						}
 
-                    }
-                    else
-                    {
-                        ninth_sky::error_report.debug_write("case 2");
-                        /// x - -y = x+y
+					}
+					else
+					{
+						ninth_sky::error_report.debug_write("case 2");
+						/// x - -y = x+y
 
-                        ixl.setNegative (false);
-                        answer = ths + ixl;
-                    }
-                }
-                else
-                {
-                    if (ixl.isNegative() == false)
-                    {
-                        ninth_sky::error_report.debug_write("case 3");
-                        /// -x - y = -(x+y)
+						ixl.setNegative (false);
+						answer = ths + ixl;
+					}
+				}
+				else
+				{
+					if (ixl.isNegative() == false)
+					{
+						ninth_sky::error_report.debug_write("case 3");
+						/// -x - y = -(x+y)
 
-                        ths.setNegative (false);
-                        answer = ths + ixl;
-                        answer.setNegative (true);
-                    }
-                    else
-                    {
-                        ninth_sky::error_report.debug_write("case 4");
-                        /// -x - -y = -x+y = y-x
+						ths.setNegative (false);
+						answer = ths + ixl;
+						answer.setNegative (true);
+					}
+					else
+					{
+						ninth_sky::error_report.debug_write("case 4");
+						/// -x - -y = -x+y = y-x
 
-                        ths.setNegative (false);
-                        ixl.setNegative (false);
-                        answer = ixl - ths;
-                    }
-                }
+						ths.setNegative (false);
+						ixl.setNegative (false);
+						answer = ixl - ths;
+					}
+				}
 
-                answer.refresh();
-                return answer;
+				answer.refresh();
+				return answer;
 			}
 			integer_xl operator + (integer_xl ixl)
 			{
@@ -423,12 +423,12 @@ namespace ninth_sky
 					integer_xl ths;
 					ths.assign(this -> value);
 					if (this -> negative)
-                    {
-                        answer = (ixl - ths);
-                    }
+					{
+						answer = (ixl - ths);
+					}
 					else
 					{
-					    ixl.setNegative(false);
+						ixl.setNegative(false);
 						answer = (ths - ixl);
 					}
 					return answer;
@@ -478,60 +478,60 @@ namespace ninth_sky
 			}
 			void operator += (const integer_xl& ixl)
 			{
-			    integer_xl ths, answer;
-			    ths.assign(this -> value);
-			    ths.setNegative(this -> negative);
-			    answer = ths + ixl;
-			    this -> value = answer.value;
-			    this -> negative = answer.isNegative();
+				integer_xl ths, answer;
+				ths.assign(this -> value);
+				ths.setNegative(this -> negative);
+				answer = ths + ixl;
+				this -> value = answer.value;
+				this -> negative = answer.isNegative();
 			}
 			void operator -= (const integer_xl& ixl)
 			{
-			    integer_xl ths, answer;
-			    ths.assign(this -> value);
-			    ths.setNegative(this -> negative);
-			    answer = ths - ixl;
-			    this -> value = answer.value;
-			    this -> negative = answer.isNegative();
+				integer_xl ths, answer;
+				ths.assign(this -> value);
+				ths.setNegative(this -> negative);
+				answer = ths - ixl;
+				this -> value = answer.value;
+				this -> negative = answer.isNegative();
 			}
 			integer_xl operator * (const integer_xl& ixl)
 			{
-			    integer_xl answer, _ixl;
+				integer_xl answer, _ixl;
 
-                bool swtch_i = true,
-                     swtch_j = true;
-                short int tmp = 1, carry = 0;
-                long int counter = 0;
-                auto i = this -> value.end(),
-                    l1 = this -> value.begin();
-                auto j = ixl.value.end(),
-                    l2 = ixl.value.begin();
+				bool swtch_i = true,
+					 swtch_j = true;
+				short int tmp = 1, carry = 0;
+				long int counter = 0;
+				auto i = this -> value.end(),
+					l1 = this -> value.begin();
+				auto j = ixl.value.end(),
+					l2 = ixl.value.begin();
 
-                while (i-- != l1)
-                {
-                    while (j-- != l2)
-                    {
-                        tmp = (*i)*(*j);
-                        tmp += carry;
-                        if (tmp >= 10)
-                        {
-                            carry = tmp/10;
-                            tmp %= 10;
-                        }
-                        else
-                            carry = 0;
-                        _ixl.appendLeft(tmp);
-                    }
-                    _ixl.appendRight(0, counter++);
-                    answer += _ixl;
-                    _ixl.clear();
-                    j = ixl.value.end();
-                }
+				while (i-- != l1)
+				{
+					while (j-- != l2)
+					{
+						tmp = (*i)*(*j);
+						tmp += carry;
+						if (tmp >= 10)
+						{
+							carry = tmp/10;
+							tmp %= 10;
+						}
+						else
+							carry = 0;
+						_ixl.appendLeft(tmp);
+					}
+					_ixl.appendRight(0, counter++);
+					answer += _ixl;
+					_ixl.clear();
+					j = ixl.value.end();
+				}
 
-                if (this -> negative != ixl.negative)
-                    answer.setNegative();
-                answer.refresh();
-                return answer;
+				if (this -> negative != ixl.negative)
+					answer.setNegative();
+				answer.refresh();
+				return answer;
 			}
 
 			/**
