@@ -49,10 +49,9 @@ namespace ninth_sky
 			{
 				return this -> value.size();
 			}
-			void setNegative (bool yesno)
+			void setNegative (bool yesno = true)
 			{
-				if (!this -> value.empty())
-                    this -> negative = yesno;
+				this -> negative = yesno;
 			}
 			bool isNegative ()
 			{
@@ -76,7 +75,10 @@ namespace ninth_sky
 			void refresh ()
 			{
 			    if (this -> value.empty())
-			        return;
+				{
+					this -> setNegative(false);
+					return;
+				}
 			    auto i = this -> value.begin(),
 			         l = this -> value.end();
 
@@ -129,6 +131,7 @@ namespace ninth_sky
 			void operator = (const integer_xl& ixl)
 			{
 				this -> value = ixl.value;
+				this -> negative = ixl.negative;
 			}
 
 			/**
@@ -408,7 +411,7 @@ namespace ninth_sky
                 answer.refresh();
                 return answer;
 			}
-			integer_xl operator + (const integer_xl& ixl)
+			integer_xl operator + (integer_xl ixl)
 			{
 				integer_xl answer;
 
@@ -416,13 +419,13 @@ namespace ninth_sky
 				{
 					integer_xl ths;
 					ths.assign(this -> value);
-					if (this -> negative == true)
+					if (this -> negative)
                     {
-                        answer = (ths - ixl);
-                        answer.setNegative(true);
+                        answer = (ixl - ths);
                     }
 					else
 					{
+					    ixl.setNegative(false);
 						answer = (ths - ixl);
 					}
 					return answer;
