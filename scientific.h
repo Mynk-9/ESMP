@@ -106,7 +106,7 @@ namespace ninth_sky
 			}
 
 			/**
-			*   @brief  assignment operators
+			*   @brief  Assignment Operators
 			*/
 			void operator = (const std::string number)
 			{
@@ -135,7 +135,7 @@ namespace ninth_sky
 			}
 
 			/**
-			*   @brief  relational operators
+			*   @brief  Relational Operators
 			*/
 			bool operator == (const integer_xl& ixl)
 			{
@@ -284,14 +284,13 @@ namespace ninth_sky
 			}
 
 			/**
-			*   @brief  arithmetic operators
+			*   @brief  Arithmetic Operators
 			*/
 			integer_xl operator - (integer_xl ixl)
 			{
 			    integer_xl answer, ths;
 			    ths.assign(this -> value);
 			    ths.setNegative(this -> isNegative());
-			    bool __setAnswerNegativeLater = false;
 
 			    /**
 			    *   We're going to substract ixl from ths, i.e, ths - ixl
@@ -332,7 +331,7 @@ namespace ninth_sky
                             l1 = ixl.value.begin();
                             j = ths.value.end();
                             l2 = ths.value.begin();
-                            __setAnswerNegativeLater = true;
+                            answer.setNegative();
                         }
 
                         /// /////////////////////////// ///
@@ -371,6 +370,7 @@ namespace ninth_sky
                                 carry = 0;
 
                             answer.appendLeft(tmp);
+                            tmp = 0;
                         }
 
                     }
@@ -404,9 +404,6 @@ namespace ninth_sky
                         answer = ixl - ths;
                     }
                 }
-
-                if (__setAnswerNegativeLater)
-                    answer.setNegative(true);
 
                 answer.refresh();
                 return answer;
@@ -472,6 +469,15 @@ namespace ninth_sky
 					answer.appendLeft(carry);
 
 				return answer;
+			}
+			void operator += (const integer_xl& ixl)
+			{
+			    integer_xl ths, answer;
+			    ths.assign(this -> value);
+			    ths.setNegative(this -> negative);
+			    answer = ths + ixl;
+			    this -> value = answer.value;
+			    this -> negative = answer.isNegative();
 			}
 
 			/**
