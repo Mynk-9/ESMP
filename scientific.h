@@ -41,9 +41,15 @@ namespace ninth_sky
 			bool negative = false;
 
 		public:
-			void appendLeft (int a)
+			void appendLeft (short int a, int counter = 1)
 			{
-				this -> value.push_front(a);
+				while (counter--)
+				    this -> value.push_front(a);
+			}
+			void appendRight (short int a, int counter = 1)
+			{
+			    while (counter--)
+			        this -> value.push_back(a);
 			}
 			int length ()
 			{
@@ -478,6 +484,54 @@ namespace ninth_sky
 			    answer = ths + ixl;
 			    this -> value = answer.value;
 			    this -> negative = answer.isNegative();
+			}
+			void operator -= (const integer_xl& ixl)
+			{
+			    integer_xl ths, answer;
+			    ths.assign(this -> value);
+			    ths.setNegative(this -> negative);
+			    answer = ths - ixl;
+			    this -> value = answer.value;
+			    this -> negative = answer.isNegative();
+			}
+			integer_xl operator * (const integer_xl& ixl)
+			{
+			    integer_xl answer, _ixl;
+
+                bool swtch_i = true,
+                     swtch_j = true;
+                short int tmp = 1, carry = 0;
+                long int counter = 0;
+                auto i = this -> value.end(),
+                    l1 = this -> value.begin();
+                auto j = ixl.value.end(),
+                    l2 = ixl.value.begin();
+
+                while (i-- != l1)
+                {
+                    while (j-- != l2)
+                    {
+                        tmp = (*i)*(*j);
+                        tmp += carry;
+                        if (tmp >= 10)
+                        {
+                            carry = tmp/10;
+                            tmp %= 10;
+                        }
+                        else
+                            carry = 0;
+                        _ixl.appendLeft(tmp);
+                    }
+                    _ixl.appendRight(0, counter++);
+                    answer += _ixl;
+                    _ixl.clear();
+                    j = ixl.value.end();
+                }
+
+                if (this -> negative != ixl.negative)
+                    answer.setNegative();
+                answer.refresh();
+                return answer;
 			}
 
 			/**
