@@ -547,21 +547,20 @@ namespace ninth_sky
 						}
 						else
 							carry = 0;
-						/*ninth_sky::error_report.debug_writer_enabled = true;
-						ninth_sky::error_report.debug_write(tmp);
-						ninth_sky::error_report.debug_writer_enabled = false;*/
 						_ixl.appendLeft(tmp);
 					}
 					_ixl.appendRight(0, counter++);
+					if (carry != 0)
+					{
+						_ixl.appendLeft(carry);
+						carry = 0;
+					}
+					/*ninth_sky::error_report.debug_writer_enabled = true;
+					ninth_sky::error_report.debug_write(_ixl);
+					ninth_sky::error_report.debug_writer_enabled = false;*/
 					answer += _ixl;
 					_ixl.clear();
 					j = ixl.value.end();
-				}
-				if (carry != 0)
-				{
-					_ixl.appendRight(0, counter);
-					_ixl.appendLeft(carry);
-					answer += _ixl;
 				}
 
 				if (this -> negative != ixl.negative)
