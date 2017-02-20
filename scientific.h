@@ -78,6 +78,11 @@ namespace ninth_sky
 						this -> value.push_back(((short int)(*start)) % 10);
 				}
 			}
+			void assign (ninth_sky::integer_xl& ixl)
+			{
+				this -> value = ixl.value;
+				this -> setNegative(ixl.negative);
+			}
 			void refresh ()
 			{
 				if (this -> value.empty())
@@ -110,6 +115,17 @@ namespace ninth_sky
 					str += std::to_string (*i);
 				return str;
 			}
+			bool empty ()
+			{
+				if (this -> value.empty())
+					return true;
+				else
+					return false;
+			}
+			void reverse ()
+			{
+				this -> value.reverse();
+			}
 
 			/**
 			*   @brief  Assignment Operators
@@ -138,6 +154,18 @@ namespace ninth_sky
 			{
 				this -> value = ixl.value;
 				this -> negative = ixl.negative;
+			}
+			void operator = (long long int lli)
+			{
+				this -> clear();
+				int digit;
+				do
+				{
+					digit = lli % 10;
+					this -> appendLeft(digit);
+					lli /= 10;
+
+				} while (lli > 0);
 			}
 
 			/**
@@ -314,7 +342,7 @@ namespace ninth_sky
 				{
 					if (ixl.isNegative() == false)
 					{
-						ninth_sky::error_report.debug_write("case 1");
+						//ninth_sky::error_report.debug_write("case 1");
 						/// x - y = x-y
 
 						std::_List_iterator <short int> i, j, l1, l2;
@@ -382,7 +410,7 @@ namespace ninth_sky
 					}
 					else
 					{
-						ninth_sky::error_report.debug_write("case 2");
+						//ninth_sky::error_report.debug_write("case 2");
 						/// x - -y = x+y
 
 						ixl.setNegative (false);
@@ -393,7 +421,7 @@ namespace ninth_sky
 				{
 					if (ixl.isNegative() == false)
 					{
-						ninth_sky::error_report.debug_write("case 3");
+						//ninth_sky::error_report.debug_write("case 3");
 						/// -x - y = -(x+y)
 
 						ths.setNegative (false);
@@ -402,7 +430,7 @@ namespace ninth_sky
 					}
 					else
 					{
-						ninth_sky::error_report.debug_write("case 4");
+						//ninth_sky::error_report.debug_write("case 4");
 						/// -x - -y = -x+y = y-x
 
 						ths.setNegative (false);
@@ -465,7 +493,7 @@ namespace ninth_sky
 					else
 						carry = 0;
 
-					ninth_sky::error_report.debug_write(tmp); /// debug
+					//ninth_sky::error_report.debug_write(tmp); /// debug
 					answer.appendLeft(tmp);
 					tmp = 0;
 				}
@@ -511,8 +539,7 @@ namespace ninth_sky
 				{
 					while (j-- != l2)
 					{
-						tmp = (*i)*(*j);
-						tmp += carry;
+						tmp = ((*i)*(*j)) + carry;
 						if (tmp >= 10)
 						{
 							carry = tmp/10;
@@ -520,6 +547,9 @@ namespace ninth_sky
 						}
 						else
 							carry = 0;
+						/*ninth_sky::error_report.debug_writer_enabled = true;
+						ninth_sky::error_report.debug_write(tmp);
+						ninth_sky::error_report.debug_writer_enabled = false;*/
 						_ixl.appendLeft(tmp);
 					}
 					_ixl.appendRight(0, counter++);
@@ -527,11 +557,25 @@ namespace ninth_sky
 					_ixl.clear();
 					j = ixl.value.end();
 				}
+				if (carry != 0)
+				{
+					_ixl.appendRight(0, counter);
+					_ixl.appendLeft(carry);
+					answer += _ixl;
+				}
 
 				if (this -> negative != ixl.negative)
 					answer.setNegative();
 				answer.refresh();
 				return answer;
+			}
+			void operator *= (const integer_xl& ixl)
+			{
+				integer_xl answer, ths;
+				ths.assign(this -> value);
+				ths.setNegative(this -> negative);
+				answer = ths * ixl;
+				this -> assign(answer);
 			}
 
 			/**
