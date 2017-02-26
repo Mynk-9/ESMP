@@ -46,8 +46,9 @@ namespace ninth_sky
 	*   @param  ARRAY_TYPE::iterator _end	   :   The ending random access or forward iterator.
 	*/
 	template <typename ARRAY_TYPE, typename ITEM_TYPE>
-	std::pair <int, int> binary_search
-		(const typename ARRAY_TYPE::iterator _begin, const typename ARRAY_TYPE::iterator _end, ITEM_TYPE item)
+	std::pair <int, int> binarySearch
+		(const typename ARRAY_TYPE::iterator _begin,
+		 const typename ARRAY_TYPE::iterator _end, ITEM_TYPE item)
 	{
 		typename ARRAY_TYPE::iterator first, last;
 		first = _begin < _end ? _begin : _end;

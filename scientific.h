@@ -34,7 +34,7 @@ namespace ninth_sky
 	*	@brief	  This class include a scientific data type with extremely large
 	*			   possible value calculations.
 	*/
-	class integer_xl
+	class integer_xl: public object
 	{
 		private:
 			std::list <short int> value;

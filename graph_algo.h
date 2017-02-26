@@ -27,9 +27,28 @@ limitations under the License.
 
 namespace ninth_sky
 {
-	/*
-	*	pending to add dijkstra's algo, bellman-ford algo.
-	*/
+    /**
+    *   @brief      Uses the Bellman-Ford Algorithm to find shortest path
+    *               between a source vertex and all others.
+    *               Returns the path weight.
+    *   @param      graph <VERTEX_TYPE>     :   Graph on which algorithm should
+    *                                           be used.
+    *   @param      src                     :   Source vertex
+    */
+    template <typename VERTEX_TYPE>
+    std::map <VERTEX_TYPE, int> bellman_ford (ninth_sky::graph <VERTEX_TYPE> & g, VERTEX_TYPE& src)
+    {
+        std::map <VERTEX_TYPE, int> path_weights;
+        std::vector < std::pair < VERTEX_TYPE, int > > neighbours;		/// neighbors -> [ {vertex, weight}, {vertex, weight}, ... ]
+        bool change = true;
+        int count = 0;
+        VERTEX_TYPE v = src;
+
+        while (change && count++ < g.vertexCount())
+        {
+            neighbours = g.getNeighbours(v);
+        }
+    }
 }
 
 

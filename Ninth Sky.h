@@ -28,11 +28,16 @@ namespace ninth_sky
 	/**
 	*	@brief	Declaration for the namespace ninth_sky
 	*/
+	class object
+	{
+
+	};
 }
 
 #include "error_submission.h"
 #include "scientific.h"
 #include "graph.h"
+#include "graph_algo.h"
 #include "algo.h"
 
 #endif

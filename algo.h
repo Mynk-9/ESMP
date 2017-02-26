@@ -27,10 +27,6 @@ limitations under the License.
 *	@brief		include searching algorithms
 */
 #include "search_algo.h"
-/**
-*	@brief		include graph algorithms
-*/
-#include "graph_algo.h"
 
 
 #endif
