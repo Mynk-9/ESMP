@@ -55,7 +55,7 @@ namespace ninth_sky
 			*   @brief	  Adds a vertex to the graph.
 			*   @param	  VERTEX_TYPE a   :   The vertex ID
 			*/
-			inline void addVertex (VERTEX_TYPE a)
+			void addVertex (VERTEX_TYPE a)
 			{
 				vertex <VERTEX_TYPE> v;
 				v.id = a;
@@ -76,7 +76,7 @@ namespace ninth_sky
 			*   @param    bool bidirectional    :   set true if the path is
 			*                                       bidirectional, false if directed.
 			*/
-			inline void addNeighbour (VERTEX_TYPE v, VERTEX_TYPE u, int weight, bool bidirectional = false)
+			void addNeighbour (VERTEX_TYPE v, VERTEX_TYPE u, int weight, bool bidirectional = false)
 			{
 				if (!vertices[v].initialised || !vertices[u].initialised)
 					return;
@@ -96,7 +96,7 @@ namespace ninth_sky
 			void removeVertex (VERTEX_TYPE id);
 
 			/**
-			*   @brief	  Return a pair { VERTEX_TYPE, int } which
+			*   @brief	  Return a vector of pair { VERTEX_TYPE, int } which
 			*			   represent connected vertexes and their path
 			*			   weight.
 			*   @param	  None
@@ -126,6 +126,15 @@ namespace ninth_sky
 					vec.push_back (v.first);
 				}
 				return vec;
+			}
+
+			/**
+			*	@brief	Clears the whole graph
+			*/
+			void clear ()
+			{
+				this -> vertex_count = 0;
+				this -> vertices.clear();
 			}
 	};
 }

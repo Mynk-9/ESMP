@@ -526,8 +526,6 @@ namespace ninth_sky
 			{
 				integer_xl answer, _ixl;
 
-				bool swtch_i = true,
-					 swtch_j = true;
 				short int tmp = 1, carry = 0;
 				long int counter = 0;
 				auto i = this -> value.end(),

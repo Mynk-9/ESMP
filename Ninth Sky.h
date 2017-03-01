@@ -30,7 +30,7 @@ namespace ninth_sky
 	*/
 	class object
 	{
-
+		/// ultimate base class
 	};
 }
 
@@ -39,5 +39,6 @@ namespace ninth_sky
 #include "graph.h"
 #include "graph_algo.h"
 #include "algo.h"
+#include "data_type.h"
 
 #endif

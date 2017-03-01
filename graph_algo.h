@@ -23,6 +23,9 @@ limitations under the License.
 #ifndef GRAPH_ALGO_9THSKY
 #define GRAPH_ALGO_9THSKY
 
+#include <map>
+#include <vector>
+
 #include "graph.h"
 
 namespace ninth_sky
@@ -36,18 +39,38 @@ namespace ninth_sky
     *   @param      src                     :   Source vertex
     */
     template <typename VERTEX_TYPE>
-    std::map <VERTEX_TYPE, int> bellman_ford (ninth_sky::graph <VERTEX_TYPE> & g, VERTEX_TYPE& src)
+    std::map <VERTEX_TYPE, int> bellman_ford (ninth_sky::graph <VERTEX_TYPE> & g, const VERTEX_TYPE& src)
     {
-        std::map <VERTEX_TYPE, int> path_weights;
-        std::vector < std::pair < VERTEX_TYPE, int > > neighbours;		/// neighbors -> [ {vertex, weight}, {vertex, weight}, ... ]
-        bool change = true;
-        int count = 0;
-        VERTEX_TYPE v = src;
+        std::map <VERTEX_TYPE, int> distance;
+        for (VERTEX_TYPE vt : g.getAllVertexesById())
+			distance[vt] = INT_MAX;
+		distance[src] = 0;
 
-        while (change && count++ < g.vertexCount())
-        {
-            neighbours = g.getNeighbours(v);
-        }
+		std::vector < std::pair <VERTEX_TYPE, int> > tmp;
+		bool change = true;
+		int count = 0;
+
+		while (change && count++ < g.vertexCount())
+		{
+			change = false;
+			for (std::pair <VERTEX_TYPE, int> u : distance)					/// u -> {VERTEX_TYPE, path_weight}
+			{
+				if (u.second != INT_MAX)
+				{
+					for (std::pair <VERTEX_TYPE, int> n : g.getNeighbours(u.first))
+					{
+						int weight = u.second + n.second;
+						if (distance[n.first] > weight && n.first != src)
+						{
+							change = true;
+							distance[n.first] = weight;
+						}
+					}
+				}
+			}
+		}
+
+		return distance;
     }
 }
 
