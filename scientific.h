@@ -135,6 +135,7 @@ namespace ninth_sky
 				short int magic_number = 48;	  /// used to convert char to int
 
 				this -> value.clear();
+				this -> negative = false;
 				bool swtch = false;
 				for (char c : number)
 				{
