@@ -31,7 +31,7 @@ limitations under the License.
 namespace ninth_sky
 {
 	/**
-	*	@brief	Vertex class has properties -> id (int), neighbous: {neighbous, weights}, initialised (T/F), check (T/F)
+	*	@brief	Vertex class has properties -> id (int), neighbous: {neighbous, weights}, initialised (T/F)
 	*/
 	template <typename ID_TYPE>
 	class vertex: public object
@@ -40,7 +40,6 @@ namespace ninth_sky
 			ID_TYPE id;
 			std::vector < std::pair < ID_TYPE, int > > neighbous;
 			bool initialised		= false;
-			bool check			  = false;
 	};
 
 	template <typename VERTEX_TYPE>
@@ -101,7 +100,7 @@ namespace ninth_sky
 			*			   weight.
 			*   @param	  None
 			*/
-			inline std::vector < std::pair < VERTEX_TYPE, int > >
+			std::vector < std::pair < VERTEX_TYPE, int > >
 				getNeighbours (VERTEX_TYPE v)
 			{
 				return this -> vertices[v].neighbous;
