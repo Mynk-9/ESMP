@@ -50,7 +50,7 @@ namespace ninth_sky
 		(FORWARD_ITERATOR _begin, FORWARD_ITERATOR _end, ITEM_TYPE item)
 	{
 		if (_begin > _end)
-			swap(_begin, _end);
+			std::swap(_begin, _end);
 
 		FORWARD_ITERATOR i, j;
 		bool right_searched = false;
