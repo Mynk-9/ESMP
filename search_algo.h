@@ -45,22 +45,20 @@ namespace ninth_sky
 	*   @param  ARRAY_TYPE::iterator _begin	 :   The beginning random access or forward iterator.
 	*   @param  ARRAY_TYPE::iterator _end	   :   The ending random access or forward iterator.
 	*/
-	template <typename ARRAY_TYPE, typename ITEM_TYPE>
+	template <typename FORWARD_ITERATOR, typename ITEM_TYPE>
 	std::pair <int, int> binarySearch
-		(const typename ARRAY_TYPE::iterator _begin,
-		 const typename ARRAY_TYPE::iterator _end, ITEM_TYPE item)
+		(FORWARD_ITERATOR _begin, FORWARD_ITERATOR _end, ITEM_TYPE item)
 	{
-		typename ARRAY_TYPE::iterator first, last;
-		first = _begin < _end ? _begin : _end;
-		last = _begin == first ? _end : _begin;
+		if (_begin > _end)
+			swap(_begin, _end);
 
-		typename ARRAY_TYPE::iterator i, j;
+		FORWARD_ITERATOR i, j;
 		bool right_searched = false;
 
-		i = j = std::lower_bound(first, last, item);
-		if (i == last || *i != item)
+		i = j = std::lower_bound(_begin, _end, item);
+		if (i == _end || *i != item)
 			return {-1, -1};
-		if (i == (last - 1))
+		if (i == (_end - 1))
 			right_searched = true;
 
 		while (!right_searched)
@@ -74,7 +72,7 @@ namespace ninth_sky
 
 		std::pair <int, int> index_range;
 
-		index_range = {(i - first), (j - first)};
+		index_range = {(i - _begin), (j - _begin)};
 
 		return index_range;
 	}
