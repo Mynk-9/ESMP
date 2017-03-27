@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 #ifndef ERROR_SUBMISSION_9THSKY
-#include "error_submission.h"
+#include "error_submission.hpp"
 #endif
 
 #ifndef SEARCH_ALGO_9THSKY
@@ -40,10 +40,11 @@ namespace ninth_sky
 
 	/**
 	*   @brief  This algorithmic function is an extension to the Binary Search in STL.
-	*   @param  Template Parameters			 :   Type of Array, e.g., vector &lt;int&gt;.
+	*   @param  Template Parameters			 :   Forward/Random Access Iterator
+	*											 of the vector, deque, array(STL) etc.
 	*   @param  Template Parameters			 :   Item type in Array, e.g., int.
-	*   @param  ARRAY_TYPE::iterator _begin	 :   The beginning random access or forward iterator.
-	*   @param  ARRAY_TYPE::iterator _end	   :   The ending random access or forward iterator.
+	*   @param  FORWARD_ITERATOR _begin	 	 :   The beginning random access or forward iterator.
+	*   @param  FORWARD_ITERATOR _end	   	 :   The ending random access or forward iterator.
 	*/
 	template <typename FORWARD_ITERATOR, typename ITEM_TYPE>
 	std::pair <int, int> binarySearch
@@ -77,6 +78,39 @@ namespace ninth_sky
 		return index_range;
 	}
 
+	/**
+	  * 	@brief		Uses Kadane's Algorithm to find
+	  *					maximum summing sub-array in a 1-D
+	  *					array.
+	  *		@param		A vector, deque, array(STL) etc. which supports the
+	  *					[] operator and has .size() as method.
+	  */
+	template <typename T>
+	std::pair <int, std::pair <int, int> > kadane (T vec)
+	{
+		std::pair <int, std::pair <int, int> > p;
+		int max_here = 0, max_so_far = INT_MIN;
+		int i = 0, j = 0;
+		bool swtch = false;
+
+		for (int k = 0; k < vec.size(); k++)
+		{
+			max_here += vec[k];
+			if (max_so_far < max_here)
+			{
+				max_so_far = max_here;
+				j = k;
+			}
+			if (max_here < 0)
+			{
+				max_here = 0;
+				i = k + 1;
+			}
+		}
+
+		p = {max_so_far, {i, j}};
+		return p;
+	}
 }
 
 
