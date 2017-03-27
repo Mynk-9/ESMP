@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 #ifndef ERROR_SUBMISSION_9THSKY
-#include "error_submission.h"
+#include "error_submission.hpp"
 #endif
 
 #ifndef GRAPH_9THSKY

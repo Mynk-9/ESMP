@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 #ifndef ERROR_SUBMISSION_9THSKY
-#include "error_submission.h"
+#include "error_submission.hpp"
 #endif
 
 #ifndef GRAPH_ALGO_9THSKY
@@ -28,7 +28,7 @@ limitations under the License.
 #include <vector>
 #include <list>
 
-#include "graph.h"
+#include "graph.hpp"
 
 namespace ninth_sky
 {

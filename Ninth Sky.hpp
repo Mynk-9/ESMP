@@ -34,11 +34,11 @@ namespace ninth_sky
 	};
 }
 
-#include "error_submission.h"
-#include "scientific.h"
-#include "graph.h"
-#include "graph_algo.h"
-#include "algo.h"
-#include "data_type.h"
+#include "error_submission.hpp"
+#include "scientific.hpp"
+#include "graph.hpp"
+#include "graph_algo.hpp"
+#include "algo.hpp"
+#include "data_type.hpp"
 
 #endif
