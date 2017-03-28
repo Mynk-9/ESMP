@@ -32,7 +32,7 @@ namespace ninth_sky
 {
 	/**
 	*	@brief	  This class include a scientific data type with extremely large
-	*			   possible value calculations.
+	*			   possible value calculations but only integer type.
 	*/
 	class integer_xl: public object
 	{
@@ -594,6 +594,31 @@ namespace ninth_sky
 				std::string str;
 				in >> str;
 				ixl = str;
+			}
+	};
+
+	/**
+	  *		@brief		This class is a scientific data type with extremely
+	  *					large values of rational type. Instead of being
+	  *					derived from integer_xl, rational_xl uses it as a base
+	  *					to construct further.
+	  */
+	class rational_xl
+	{
+		private:
+			integer_xl number;
+
+		public:
+			/**
+			  *		@brief		Operator Overloads
+			  */
+
+			/**
+			  *		@brief		I/O Operator Overload
+			  */
+			friend std::ostream& operator << (std::ostream& out, const rational_xl& rxl)
+			{
+
 			}
 	};
 }
