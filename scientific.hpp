@@ -36,7 +36,7 @@ namespace ninth_sky
 	*/
 	class integer_xl: public object
 	{
-		private:
+		protected:
 			std::list <short int> value;
 			bool negative = false;
 
@@ -599,27 +599,15 @@ namespace ninth_sky
 
 	/**
 	  *		@brief		This class is a scientific data type with extremely
-	  *					large values of rational type. Instead of being
-	  *					derived from integer_xl, rational_xl uses it as a base
-	  *					to construct further.
+	  *					large values which are Rational (Q) instead of 
+	  *					integer (Z). It is derived from integer_xl.
 	  */
-	class rational_xl
+	class rational_xl: public integer_xl, public object
 	{
-		private:
-			integer_xl number;
-
+		protected:
+			/// under constant construct and demolition...
 		public:
-			/**
-			  *		@brief		Operator Overloads
-			  */
-
-			/**
-			  *		@brief		I/O Operator Overload
-			  */
-			friend std::ostream& operator << (std::ostream& out, const rational_xl& rxl)
-			{
-
-			}
+			/// under construction...
 	};
 }
 
