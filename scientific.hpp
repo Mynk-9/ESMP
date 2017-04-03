@@ -28,130 +28,61 @@ limitations under the License.
 #include <utility>
 #include <string>
 
-/// ################################################
-/// ######### > Adding Decimal Support < ###########
-/// ######### > Adding Division Support < ##########
-/// @@@@@ > Support added for extra functions < @@@@
-/// @@ > Support pending for operator overloads < @@
-/// ################################################
-///
-/// ++++++++++++++++++++++++++++++++++++++++++++++++
-///
-/// ################################################
-/// ####### > Irrational Support Pending < #########
-/// ################################################
-
 namespace ninth_sky
 {
 	/**
-	  *	@brief	  This class include a scientific data type with extremely large
-	  *			   possible value calculations but only integer type.
-	  */
+	*	@brief	  This class include a scientific data type with extremely large
+	*			   possible value calculations but only integer type.
+	*/
 	class integer_xl: public object
 	{
 		protected:
 			std::list <short int> value;
-			std::list <short int> decimal_value;
 			bool negative = false;
-			bool hasDecimal = false;
 
 		public:
-			/**
-			  *		@brief	Append a digit on the left to the value.
-			  *		@param	short int a	:	The digit
-			  *		@param	int repeater:	Optional. Number of times to repeat.
-			  */
-			void appendLeft (short int a, int repeater = 1)
+			void appendLeft (short int a, int counter = 1)
 			{
-				while (repeater--)
+				while (counter--)
 					this -> value.push_front(a);
 			}
-			/**
-			  *		@brief	Append a digit on the right to the value.
-			  *		@param	short int a	:	The digit
-			  *		@param	int repeater:	Optional. Number of times to repeat.
-			  */
-			void appendRight (short int a, int repeater = 1)
+			void appendRight (short int a, int counter = 1)
 			{
-				if (hasDecimal)
-				{
-					while (repeater--)
-						this -> decimal_value.push_back(a);
-				}
-				else
-					while (repeater--)
-						this -> value.push_back(a);
+				while (counter--)
+					this -> value.push_back(a);
 			}
-			/**
-			  *		@brief	Returns length of number.
-			  *		@param	bool include_decimal_length	:
-			  *				Optional. Whether include decimal part length.
-			  */
-			int length (bool include_decimal_length = true)
+			int length ()
 			{
-				if (include_decimal_length)
-					return (this -> value.size() + this -> decimal_value.size());
-				else
-					return this -> value.size();
+				return this -> value.size();
 			}
-			/**
-			  *		@brief	Sets the number -ve or +ve.
-			  *		@param	bool yesno	:	Set -ve Yes/No.
-			  */
 			void setNegative (bool yesno = true)
 			{
 				this -> negative = yesno;
 			}
-			/**
-			  *		@brief	Is the number -ve or not.
-			  */
 			bool isNegative ()
 			{
 				return this -> negative;
 			}
-			/**
-			  *		@brief	Assigns the number using two (or one) std::list <short int>.
-			  *		@param	std::list <short int> num	:	The non-decmal part.
-			  *		@param	std::list <short int> dec	:	Optional. The decimal part.
-			  */
-			void assign (std::list <short int> num, std::list <short int> dec = {})
+			void assign (std::list <short int> lst)
 			{
-				auto startN =		num.begin(),
-					 terminateN =	num.end();
-				auto startD =		dec.begin(),
-					 terminateD =	dec.end();
+				auto start =		lst.begin(),
+					 terminate =	lst.end();
 
 				this -> value.clear();
 				bool swtch = false;
-				for (; startN != terminateN; startN++)
+				for (; start != terminate; start++)
 				{
-					if (swtch || *startN != 0)
+					if (*start != 0)
 						swtch = true;
 					if (swtch)
-						this -> value.push_back(((short int)(*startN)) % 10);
-				}
-				swtch = false;
-				while (terminateD-- != startD)
-				{
-					if (swtch || *terminateD != 0)
-						swtch = true;
-					if (swtch)
-						this -> decimal_value.push_front(((short int)(*terminateD)) % 10);
+						this -> value.push_back(((short int)(*start)) % 10);
 				}
 			}
-			/**
-			  *		@brief	Assigns the number using another number.
-			  *		@param	ninth_sky::integer_xl ixl	:	Another number.
-			  */
 			void assign (ninth_sky::integer_xl& ixl)
 			{
 				this -> value = ixl.value;
 				this -> setNegative(ixl.negative);
-				this -> decimal_value = ixl.decimal_value;
 			}
-			/**
-			  *		@brief	Refreshes the number. Resolves any error or problem.
-			  */
 			void refresh ()
 			{
 				if (this -> value.empty())
@@ -159,85 +90,46 @@ namespace ninth_sky
 					this -> setNegative(false);
 					return;
 				}
-
 				auto i = this -> value.begin(),
-					 l1 = this -> value.end();
-				for (; i != l1; i++)
+					 l = this -> value.end();
+
+				for (; i != l; i++)
 				{
 					if (*i == 0)
 						this -> value.pop_front();
 					else
 						break;
 				}
-
-				auto j = this -> decimal_value.end(),
-					l2 = this -> decimal_value.begin();
-				while (j-- != l2)
-				{
-					if (*j == 0)
-						this -> value.pop_front();
-					else
-						break;
-				}
 			}
-			/**
-			  *		@brief	Clears the number.
-			  */
 			void clear ()
 			{
 				this -> value.clear();
 				this -> setNegative(false);
-				this -> decimal_value.clear();
 			}
-			/**
-			  *		@brief	Returns string expression of the number.
-			  */
 			std::string getString ()
 			{
 				std::string str;
-
 				auto i = this -> value.begin(),
-					 l1 = this -> value.end();
-				for (; i != l1; i++)
+					 j = this -> value.end();
+				for (; i != j; i++)
 					str += std::to_string (*i);
-
-				auto j = this -> decimal_value.begin(),
-					l2 = this -> decimal_value.end();
-				str += ".";
-				for (; j != l2; j++)
-					str += std::to_string (*j);
-
 				return str;
 			}
-			/**
-			  *		@brief	Checks if the number is empty/null.
-			  */
 			bool empty ()
 			{
-				if (this -> value.empty() && this -> decimal_value.empty())
+				if (this -> value.empty())
 					return true;
 				else
 					return false;
 			}
-			/**
-			  *		@brief	Reverses the number.
-			  */
 			void reverse ()
 			{
-				std::list <short int> tmp;
-				tmp = this -> value;
-				this -> value = this -> decimal_value;
-				this -> decimal_value = tmp;
 				this -> value.reverse();
-				this -> decimal_value.reverse();
 			}
 
 			/**
-			  *   @brief  Assignment Operators
-			  */
-			/**
-			  *		@brief		'=' operator
-			  */
+			*   @brief  Assignment Operators
+			*/
 			void operator = (const std::string number)
 			{
 				short int magic_number = 48;	  /// used to convert char to int
@@ -707,7 +599,7 @@ namespace ninth_sky
 
 	/**
 	  *		@brief		This class is a scientific data type with extremely
-	  *					large values which are Rational (Q) instead of
+	  *					large values which are Rational (Q) instead of 
 	  *					integer (Z). It is derived from integer_xl.
 	  */
 	class rational_xl: public integer_xl, public object
