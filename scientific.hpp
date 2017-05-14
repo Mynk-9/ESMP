@@ -16,19 +16,19 @@ limitations under the License.
 
 */
 
-#ifndef ERROR_SUBMISSION_9THSKY
+#ifndef ERROR_SUBMISSION_ESMP
 #include "error_submission.hpp"
 #endif
 
-#ifndef SCIENTIFIC_9THSKY
-#define SCIENTIFIC_9THSKY
+#ifndef SCIENTIFIC_ESMP
+#define SCIENTIFIC_ESMP
 
 #include <list>
 #include <iterator>
 #include <utility>
 #include <string>
 
-namespace ninth_sky
+namespace esmp
 {
 	/**
 	*	@brief	  This class include a scientific data type with extremely large
@@ -36,7 +36,7 @@ namespace ninth_sky
 	*/
 	class integer_xl: public object
 	{
-		protected:
+		private:
 			std::list <short int> value;
 			bool negative = false;
 
@@ -78,7 +78,7 @@ namespace ninth_sky
 						this -> value.push_back(((short int)(*start)) % 10);
 				}
 			}
-			void assign (ninth_sky::integer_xl& ixl)
+			void assign (esmp::integer_xl& ixl)
 			{
 				this -> value = ixl.value;
 				this -> setNegative(ixl.negative);
@@ -90,16 +90,36 @@ namespace ninth_sky
 					this -> setNegative(false);
 					return;
 				}
-				auto i = this -> value.begin(),
-					 l = this -> value.end();
 
-				for (; i != l; i++)
+				std::_List_iterator <short int>
+					fst, lst, r1, r2;
+				/// ^^ these are: first, last, range_begin, range_end
+				bool swtch;
+
+				/// first check main value for errors
+				r1 = fst = this -> value.begin();
+				r2 = lst = this -> value.end();
+				swtch = false;
+				for (; fst != lst; fst++)
 				{
-					if (*i == 0)
-						this -> value.pop_front();
+					if (*fst == 0)
+					{
+						if (!swtch)
+						{
+							swtch = true;
+							r1  = fst;
+						}
+					}
 					else
+					{
+						r2 = fst;
 						break;
+					}
+
 				}
+				/// erase unwanted elements from value
+				if (swtch)
+					this -> value.erase(r1, r2);
 			}
 			void clear ()
 			{
@@ -343,7 +363,7 @@ namespace ninth_sky
 				{
 					if (ixl.isNegative() == false)
 					{
-						//ninth_sky::error_report.debug_write("case 1");
+						//esmp::error_report.debug_write("case 1");
 						/// x - y = x-y
 
 						std::_List_iterator <short int> i, j, l1, l2;
@@ -411,7 +431,7 @@ namespace ninth_sky
 					}
 					else
 					{
-						//ninth_sky::error_report.debug_write("case 2");
+						//esmp::error_report.debug_write("case 2");
 						/// x - -y = x+y
 
 						ixl.setNegative (false);
@@ -422,7 +442,7 @@ namespace ninth_sky
 				{
 					if (ixl.isNegative() == false)
 					{
-						//ninth_sky::error_report.debug_write("case 3");
+						//esmp::error_report.debug_write("case 3");
 						/// -x - y = -(x+y)
 
 						ths.setNegative (false);
@@ -431,7 +451,7 @@ namespace ninth_sky
 					}
 					else
 					{
-						//ninth_sky::error_report.debug_write("case 4");
+						//esmp::error_report.debug_write("case 4");
 						/// -x - -y = -x+y = y-x
 
 						ths.setNegative (false);
@@ -494,7 +514,7 @@ namespace ninth_sky
 					else
 						carry = 0;
 
-					//ninth_sky::error_report.debug_write(tmp); /// debug
+					//esmp::error_report.debug_write(tmp); /// debug
 					answer.appendLeft(tmp);
 					tmp = 0;
 				}
@@ -554,9 +574,9 @@ namespace ninth_sky
 						_ixl.appendLeft(carry);
 						carry = 0;
 					}
-					/*ninth_sky::error_report.debug_writer_enabled = true;
-					ninth_sky::error_report.debug_write(_ixl);
-					ninth_sky::error_report.debug_writer_enabled = false;*/
+					/*esmp::error_report.debug_writer_enabled = true;
+					esmp::error_report.debug_write(_ixl);
+					esmp::error_report.debug_writer_enabled = false;*/
 					answer += _ixl;
 					_ixl.clear();
 					j = ixl.value.end();
@@ -599,15 +619,302 @@ namespace ninth_sky
 
 	/**
 	  *		@brief		This class is a scientific data type with extremely
-	  *					large values which are Rational (Q) instead of 
-	  *					integer (Z). It is derived from integer_xl.
+	  *					large values which are Rational (Q) instead of
+	  *					integer (Z).
 	  */
-	class rational_xl: public integer_xl, public object
+	class rational_xl
 	{
-		protected:
-			/// under constant construct and demolition...
+		private:
+			std::list <short int>
+				value, dec;
+			bool negative;
 		public:
-			/// under construction...
+			/**
+			  *		@brief	Negate the value as per the argument.
+			  *		@param	bool ngtv : boolean telling if -ve (t/f).
+			  */
+			void setNegative (bool ngtv = true)
+			{
+				this -> negative = ngtv;
+			}
+
+			/**
+			  *		@brief	Checks if the number is negative.
+			  */
+			bool isNegative ()
+			{
+				return this -> negative;
+			}
+
+			/**
+			  *		@brief	Clears the number.
+			  */
+			void clear ()
+			{
+				this -> value.clear();
+				this -> dec.clear();
+				this -> setNegative(false);
+			}
+
+			/**
+			  *		@brief	Refresh the number. Removes errors if any.
+			  */
+			void refresh ()
+			{
+				if (this -> value.empty() && this -> dec.empty())
+				{
+					this -> setNegative(false);
+				}
+
+				std::_List_iterator <short int>
+					fst, lst, r1, r2;
+				/// ^^ these are: first, last, range_begin, range_end
+				bool swtch;
+
+				/// first check main value for errors
+				r1 = fst = this -> value.begin();
+				r2 = lst = this -> value.end();
+				swtch = false;
+				for (; fst != lst; fst++)
+				{
+					if (*fst == 0)
+					{
+						if (!swtch)
+						{
+							swtch = true;
+							r1  = fst;
+						}
+					}
+					else
+					{
+						r2 = fst;
+						break;
+					}
+
+				}
+				/// erase unwanted elements from value
+				if (swtch)
+					this -> value.erase(r1, r2);
+
+				/// now check decimal value for errors
+				r2 = fst = this -> dec.end();
+				r1 = lst = this -> dec.begin();
+				swtch = false;
+				while (fst-- != lst)
+				{
+					if (*fst == 0)
+					{
+						if (!swtch)
+						{
+							swtch = true;
+							r2 = fst;
+						}
+					}
+					else
+					{
+						r1 = fst;
+						r1++;
+						break;
+					}
+				}
+
+				/// erase unwanted elements from decimal value
+				if (swtch)
+					this -> dec.erase(r1, ++r2);
+			}
+
+			/**
+			  *		@brief	Assigns value equal to another rational_xl.
+			  *		@param	const rational_xl& rxl : Another number.
+			  */
+			void assign (const rational_xl& rxl)
+			{
+				this -> value = rxl.value;
+				this -> dec = rxl.dec;
+				this -> negative = rxl.negative;
+				this -> refresh();
+			}
+
+			/**
+			  *		@brief	Assigns value equal to some string.
+			  *		@param	std::string& num : The string to which number has
+			  *								   to be assigned.
+			  */
+			void assign (std::string& num)
+			{
+				rational_xl rxl;
+				rxl = num;
+				this -> assign(rxl);
+			}
+
+			/**
+			  *		@brief	Checks if the number is empty/null.
+			  */
+			bool empty ()
+			{
+				if (this -> value.empty() && this -> dec.empty())
+					return true;
+			}
+
+			/**
+			  *		@brief	Assignment Operators
+			  */
+			void operator = (std::string str)
+			{
+				bool n_swtch = false,	/// switch for "-"
+					 d_swtch = false;	/// switch for "."
+
+				rational_xl rxl;
+				for (char c : str)
+				{
+					short int n
+						= (short int)(c - 48);
+					if (!n_swtch && c == '-')
+					{
+						n_swtch = true;
+						rxl.setNegative();
+					}
+					else if (!d_swtch && c == '.')
+					{
+						d_swtch = true;
+					}
+					else if (c >= 0 && c < 10)
+					{
+						if (d_swtch)
+							rxl.dec.push_back(c);
+						else
+							rxl.value.push_back(c);
+					}
+				}
+
+				this -> assign(rxl);
+			}
+
+			/**
+			  *		@brief	Relational operators.
+			  */
+
+			bool operator == (rational_xl rxl)
+			{
+				this -> refresh();
+				rxl.refresh();
+
+				if (this -> negative != rxl.negative)
+					return false;
+				else if (this -> value != rxl.value)
+					return false;
+				else if (this -> dec != rxl.dec)
+					return false;
+				else
+					return true;
+			}
+			bool operator > (rational_xl rxl)
+			{
+				rxl.refresh();
+				this -> refresh();
+
+				if (this -> value.size() > rxl.value.size())
+					return true;
+				else if (this -> value.size() < rxl.value.size())
+					return false;
+				else if (this -> value > rxl.value)
+					return true;
+				else if (this -> value < rxl.value)
+					return false;
+				else if (this -> dec > rxl.dec)
+					return true;
+				else
+					return false;
+			}
+			bool operator < (rational_xl rxl)
+			{
+				rxl.refresh();
+				this -> refresh();
+
+				if (this -> value.size() < rxl.value.size())
+					return true;
+				else if (this -> value.size() > rxl.value.size())
+					return false;
+				else if (this -> value < rxl.value)
+					return true;
+				else if (this -> value > rxl.value)
+					return false;
+				else if (this -> dec < rxl.dec)
+					return true;
+				else
+					return false;
+			}
+			bool operator >= (rational_xl rxl)
+			{
+				rxl.refresh();
+				this -> refresh();
+
+				if (this -> value.size() > rxl.value.size())
+					return true;
+				else if (this -> value.size() < rxl.value.size())
+					return false;
+				else if (this -> value >= rxl.value)
+					return true;
+				else if (this -> value < rxl.value)
+					return false;
+				else if (this -> dec >= rxl.dec)
+					return true;
+				else
+					return false;
+			}
+			bool operator <= (rational_xl rxl)
+			{
+				rxl.refresh();
+				this -> refresh();
+
+				if (this -> value.size() < rxl.value.size())
+					return true;
+				else if (this -> value.size() > rxl.value.size())
+					return false;
+				else if (this -> value <= rxl.value)
+					return true;
+				else if (this -> value > rxl.value)
+					return false;
+				else if (this -> dec <= rxl.dec)
+					return true;
+				else
+					return false;
+			}
+
+			/**
+			  *		@brief	I/O operators
+			  */
+
+			friend std::iostream& operator << (std::ostream& out,
+												const rational_xl& rxl)
+			{
+				if (rxl.value.empty())
+					out << "0";
+				else
+				{
+					for (auto i = rxl.value.begin();
+						i != rxl.value.end(); i++)
+						out << *i;
+				}
+				out << ".";
+				if (rxl.dec.empty())
+					out << 0;
+				else
+				{
+					for (auto i = rxl.dec.begin();
+						i != rxl.dec.end(); i++)
+						out << *i;
+				}
+				out.flush();
+			}
+
+			friend std::istream& operator >> (std::istream& in,
+												rational_xl& rxl)
+			{
+				std::string num;
+				in >> num;
+				rxl = num;
+			}
 	};
 }
 
