@@ -16,12 +16,12 @@ limitations under the License.
 
 */
 
-#ifndef ERROR_SUBMISSION_9THSKY
+#ifndef ERROR_SUBMISSION_ESMP
 #include "error_submission.hpp"
 #endif
 
-#ifndef DATA_TYPE_9THSKY
-#define DATA_TYPE_9THSKY
+#ifndef DATA_TYPE_ESMP
+#define DATA_TYPE_ESMP
 
 #include <string>
 #include <typeinfo>
@@ -30,7 +30,7 @@ limitations under the License.
 	#include <cxxabi.h>
 #endif // __GNUG__
 
-namespace ninth_sky
+namespace esmp
 {
 	struct data_type
 	{

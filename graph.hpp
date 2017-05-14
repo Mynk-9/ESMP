@@ -16,19 +16,19 @@ limitations under the License.
 
 */
 
-#ifndef ERROR_SUBMISSION_9THSKY
+#ifndef ERROR_SUBMISSION_ESMP
 #include "error_submission.hpp"
 #endif
 
-#ifndef GRAPH_9THSKY
-#define GRAPH_9THSKY
+#ifndef GRAPH_ESMP
+#define GRAPH_ESMP
 
 
 #include <vector>
 #include <map>
 #include <utility>
 
-namespace ninth_sky
+namespace esmp
 {
 	/**
 	*	@brief	Vertex class has properties -> id (int), neighbous: {neighbous, weights}, initialised (T/F)
@@ -61,7 +61,7 @@ namespace ninth_sky
 				v.initialised = true;
 				this -> vertices[a] = v;
 				this -> vertex_count++;
-				//ninth_sky::error_report.debug_write("Adding new vertex: " + std::to_string(a));
+				//esmp::error_report.debug_write("Adding new vertex: " + std::to_string(a));
 			}
 
 			/**
@@ -82,7 +82,7 @@ namespace ninth_sky
 				this -> vertices[v].neighbous.push_back({u, weight});
 				if (bidirectional == true)
                     this -> vertices[u].neighbous.push_back({v, weight});
-				/*ninth_sky::error_report.debug_write
+				/*esmp::error_report.debug_write
 					("Setting " + std::to_string(u) + " as a neighbour of " + std::to_string(v) + " with weight " + std::to_string(weight));*/
 			}
 

@@ -16,12 +16,12 @@ limitations under the License.
 
 */
 
-#ifndef ERROR_SUBMISSION_9THSKY
+#ifndef ERROR_SUBMISSION_ESMP
 #include "error_submission.hpp"
 #endif
 
-#ifndef SEARCH_ALGO_9THSKY
-#define SEARCH_ALGO_9THSKY
+#ifndef SEARCH_ALGO_ESMP
+#define SEARCH_ALGO_ESMP
 
 /**
 *	@brief	this section includes searching algorithms
@@ -35,7 +35,7 @@ limitations under the License.
 #include <deque>
 #include <algorithm>
 
-namespace ninth_sky
+namespace esmp
 {
 
 	/**
@@ -48,7 +48,7 @@ namespace ninth_sky
 	*/
 	template <typename FORWARD_ITERATOR, typename ITEM_TYPE>
 	std::pair <int, int> binarySearch
-		(FORWARD_ITERATOR _begin, FORWARD_ITERATOR _end, ITEM_TYPE item)
+		(FORWARD_ITERATOR _begin, FORWARD_ITERATOR _end, const ITEM_TYPE& item)
 	{
 		if (_begin > _end)
 			std::swap(_begin, _end);
@@ -80,13 +80,13 @@ namespace ninth_sky
 
 	/**
 	  * 	@brief		Uses Kadane's Algorithm to find
-	  *					maximum summing sub-array in a 1-D
-	  *					array.
-	  *		@param		A vector, deque, array(STL) etc. which supports the
-	  *					[] operator and has .size() as method.
+	  *		      		maximum summing sub-array of variable length in a 1-D
+	  *		      		array.
+	  * 	@param		A vector, deque, array(STL) etc. which supports the
+	  *		      		[] operator and has .size() as method.
 	  */
 	template <typename T>
-	std::pair <int, std::pair <int, int> > kadane (T vec)
+	std::pair <int, std::pair <int, int> > kadane (const T& vec)
 	{
 		std::pair <int, std::pair <int, int> > p;
 		int max_here = 0, max_so_far = INT_MIN;
@@ -110,6 +110,38 @@ namespace ninth_sky
 
 		p = {max_so_far, {i, j}};
 		return p;
+	}
+
+	/**
+	  *		@brief		Used to find maximum summing sub-array of variable
+	  *					length in an array, vector, deque etc.
+	  *		@param		Template Parameters	:	Array type, eg., Vector, Deque etc.
+	  *											which support [] operator.
+	  *		@param		T vec				:	The vector, deque, etc.
+	  *		@param		int length			:	Fixed length of the sub-array.
+	  *		@return		std::pair<int, int>	:	First is max sum. Second is
+	  *											starting iterator.
+	  */
+	template <typename T>
+	std::pair <int, int> maxSumming_SubArray_fixedLength (const T& vec, const int& length)
+	{
+		int max_sum = INT_MIN, sum = 0, loc = 0;
+
+		for (int i = 0; i < vec.size(); i++)
+		{
+			sum += vec[i];
+			if (i - length >= 0)
+			{
+				sum -= vec[i - length];
+				if (max_sum < sum)
+				{
+					max_sum = sum;
+					loc = i;
+				}
+			}
+		}
+
+		return {max_sum, loc};
 	}
 }
 

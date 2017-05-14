@@ -16,12 +16,12 @@ limitations under the License.
 
 */
 
-#ifndef ERROR_SUBMISSION_9THSKY
+#ifndef ERROR_SUBMISSION_ESMP
 #include "error_submission.hpp"
 #endif
 
-#ifndef GRAPH_ALGO_9THSKY
-#define GRAPH_ALGO_9THSKY
+#ifndef GRAPH_ALGO_ESMP
+#define GRAPH_ALGO_ESMP
 
 #include <utility>
 #include <map>
@@ -30,7 +30,7 @@ limitations under the License.
 
 #include "graph.hpp"
 
-namespace ninth_sky
+namespace esmp
 {
 	struct algorithms_graph
 	{
@@ -42,7 +42,7 @@ namespace ninth_sky
 		*   @param      src                     :   Source vertex
 		*/
 		template <typename VERTEX_TYPE>
-		std::vector <VERTEX_TYPE> breadthFirstTransversal (ninth_sky::graph <VERTEX_TYPE> & g, const VERTEX_TYPE& src)
+		std::vector <VERTEX_TYPE> breadthFirstTransversal (esmp::graph <VERTEX_TYPE> & g, const VERTEX_TYPE& src)
 		{
 			std::vector <VERTEX_TYPE> v;
 			v.resize(g.vertexCount());
@@ -74,7 +74,7 @@ namespace ninth_sky
 		*   @param      src                     :   Source vertex
 		*/
 		template <typename VERTEX_TYPE>
-		bool breadthFirstSearch (ninth_sky::graph <VERTEX_TYPE> & g, const VERTEX_TYPE& src, const VERTEX_TYPE& dest)
+		bool breadthFirstSearch (esmp::graph <VERTEX_TYPE> & g, const VERTEX_TYPE& src, const VERTEX_TYPE& dest)
 		{
 			if (src == dest)
 				return true;
@@ -110,7 +110,7 @@ namespace ninth_sky
 		*   @param      src                     :   Source vertex
 		*/
 		template <typename VERTEX_TYPE>
-		std::map <VERTEX_TYPE, int> bellman_ford (ninth_sky::graph <VERTEX_TYPE> & g, const VERTEX_TYPE& src)
+		std::map <VERTEX_TYPE, int> bellman_ford (esmp::graph <VERTEX_TYPE> & g, const VERTEX_TYPE& src)
 		{
 			std::map <VERTEX_TYPE, int> distance;
 			for (VERTEX_TYPE vt : g.getAllVertexesById())

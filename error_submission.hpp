@@ -16,13 +16,13 @@ limitations under the License.
 
 */
 
-#ifndef ERROR_SUBMISSION_9THSKY
-#define ERROR_SUBMISSION_9THSKY
+#ifndef ERROR_SUBMISSION_ESMP
+#define ERROR_SUBMISSION_ESMP
 
 #include <string>
 #include <fstream>
 
-namespace ninth_sky
+namespace esmp
 {
 	struct error_submission
 	{

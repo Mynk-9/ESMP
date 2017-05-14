@@ -16,17 +16,29 @@ limitations under the License.
 
 */
 
-#ifndef ERROR_SUBMISSION_ESMP
-#include "error_submission.hpp"
-#endif
-
-#ifndef ALGORITHMS_ESMP
-#define ALGORITHMS_ESMP
+#ifndef NINTHSKY_ESMP
+#define NINTHSKY_ESMP
 
 /**
-*	@brief		include searching algorithms
+*	@brief	Will include all other headers.
 */
-#include "search_algo.hpp"
 
+namespace esmp
+{
+	/**
+	*	@brief	Declaration for the namespace esmp
+	*/
+	class object
+	{
+		/// ultimate base class
+	};
+}
+
+#include "error_submission.hpp"
+#include "scientific.hpp"
+#include "graph.hpp"
+#include "graph_algo.hpp"
+#include "algo.hpp"
+#include "data_type.hpp"
 
 #endif
