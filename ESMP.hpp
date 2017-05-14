@@ -16,8 +16,8 @@ limitations under the License.
 
 */
 
-#ifndef NINTHSKY_ESMP
-#define NINTHSKY_ESMP
+#ifndef ESMP_ESMP
+#define ESMP_ESMP
 
 /**
 *	@brief	Will include all other headers.
