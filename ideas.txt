@@ -1,0 +1,11 @@
+* integer_xl shall be replaced very soon with rational_xl.
+
+Ideas for rational_xl:
+
+1) Can utilize the -vity of the used base data type short int, or, rather use unsigned short int.
+2) Unify + and - operators.
+3) Make future extensibility possible.
+4) Unity * and / operators.
+5) Add operator for power.
+6) Add operator for factorial [definately with constraints of checking if the given number is fitting with conditions of being a whole number].
+7) [TBC].
