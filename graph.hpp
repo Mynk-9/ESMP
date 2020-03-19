@@ -34,7 +34,7 @@ namespace esmp
 	*	@brief	Vertex class has properties -> id (int), neighbous: {neighbous, weights}, initialised (T/F)
 	*/
 	template <typename ID_TYPE>
-	class vertex: public object
+	class vertex//: public object
 	{
 		public:
 			ID_TYPE id;
@@ -43,7 +43,7 @@ namespace esmp
 	};
 
 	template <typename VERTEX_TYPE>
-	class graph: public object
+	class graph//: public object
 	{
 		private:
 			std::map < VERTEX_TYPE, vertex <VERTEX_TYPE> > vertices;

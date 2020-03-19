@@ -38,7 +38,8 @@ namespace esmp
 		*	@brief	Gets the name of data type.
 		*	@param	The data object.
 		*/
-		std::string getName (auto& instance)
+		template <typename T>
+		std::string getName (T& instance)
 		{
 
 #ifdef __GNUG__

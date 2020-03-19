@@ -21,6 +21,7 @@ limitations under the License.
 
 #include <string>
 #include <fstream>
+#include <iostream>
 
 namespace esmp
 {
@@ -35,18 +36,18 @@ namespace esmp
 			{
 				std::ofstream out;
 				out.open ("ERROR_REPORT.txt", std::ios_base::app);
-				out << "Some critical error has occured in the Ninth Sky Library. See the details below: \n\n";
+				out << "Some critical error has occurred in ESMP. See the details below: \n\n";
 				out << err << "\n\n";
 				out.flush();
 			}
 			else
 			{
-				std::cout << "Some critical error has occured in the Ninth Sky Library. See the details below: \n\n" << err;
+				std::cout << "Some critical error has occurred in ESMP. See the details below: \n\n" << err;
 				std::cout << std::endl;
 			}
 			return void();
 		}
-		void debug_write (auto dbug)
+		void debug_write (std::string dbug)
 		{
 			if (debug_writer_enabled)
 			{
@@ -54,13 +55,13 @@ namespace esmp
 				{
 					std::ofstream out;
 					out.open ("DEBUG_REPORT.txt", std::ios_base::app);
-					out << "Debug (Ninth Sky Library): \n\n";
+					out << "Debug (ESMP): \n\n";
 					out << dbug << "\n\n";
 					out.flush();
 				}
 				else
 				{
-					std::cout << "Debug (Ninth Sky Library): " << dbug << std::endl;
+					std::cout << "Debug (ESMP): " << dbug << std::endl;
 				}
 			}
 			return void();

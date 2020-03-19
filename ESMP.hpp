@@ -28,10 +28,10 @@ namespace esmp
 	/**
 	*	@brief	Declaration for the namespace esmp
 	*/
-	class object
-	{
+	//class object
+	//{
 		/// ultimate base class
-	};
+	//};
 }
 
 #include "error_submission.hpp"

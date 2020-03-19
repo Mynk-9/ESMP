@@ -34,7 +34,7 @@ namespace esmp
 	*	@brief	  This class include a scientific data type with extremely large
 	*			   possible value calculations but only integer type.
 	*/
-	class integer_xl: public object
+	class integer_xl//: public object
 	{
 		private:
 			std::list <short int> value;
@@ -55,9 +55,9 @@ namespace esmp
 			{
 				return this -> value.size();
 			}
-			void setNegative (bool yesno = true)
+			void setNegative (bool check = true)
 			{
-				this -> negative = yesno;
+				this -> negative = check;
 			}
 			bool isNegative ()
 			{
@@ -608,12 +608,16 @@ namespace esmp
 				for (auto i = ixl.value.begin(); i != ixl.value.end(); i++)
 					out << (*i);
 				out.flush();
+
+				return out;
 			}
 			friend std::istream& operator >> (std::istream& in, integer_xl& ixl)
 			{
 				std::string str;
 				in >> str;
 				ixl = str;
+
+				return in;
 			}
 	};
 
@@ -631,11 +635,11 @@ namespace esmp
 		public:
 			/**
 			  *		@brief	Negate the value as per the argument.
-			  *		@param	bool ngtv : boolean telling if -ve (t/f).
+			  *		@param	bool check : boolean telling if -ve (t/f).
 			  */
-			void setNegative (bool ngtv = true)
+			void setNegative (bool check = true)
 			{
-				this -> negative = ngtv;
+				this -> negative = check;
 			}
 
 			/**
