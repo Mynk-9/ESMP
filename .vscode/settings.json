@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "ESMP"
-    ]
+    ],
+    "files.associations": {
+        "string": "cpp"
+    }
 }
