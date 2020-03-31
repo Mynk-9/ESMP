@@ -37,6 +37,7 @@ namespace esmp
 #include "error_submission.hpp"
 #include "scientific.hpp"
 #include "graph.hpp"
+#include "segment_tree.hpp"
 #include "graph_algo.hpp"
 #include "algo.hpp"
 #include "data_type.hpp"

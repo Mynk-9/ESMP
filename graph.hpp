@@ -31,14 +31,14 @@ limitations under the License.
 namespace esmp
 {
 	/**
-	*	@brief	Vertex class has properties -> id (int), neighbous: {neighbous, weights}, initialised (T/F)
+	*	@brief	Vertex class has properties -> id (int), neighbors: {neighbors, weights}, initialised (T/F)
 	*/
 	template <typename ID_TYPE>
 	class vertex//: public object
 	{
 		public:
 			ID_TYPE id;
-			std::vector < std::pair < ID_TYPE, int > > neighbous;
+			std::vector < std::pair < ID_TYPE, int > > neighbors;
 			bool initialised		= false;
 	};
 
@@ -79,9 +79,9 @@ namespace esmp
 			{
 				if (!vertices[v].initialised || !vertices[u].initialised)
 					return;
-				this -> vertices[v].neighbous.push_back({u, weight});
+				this -> vertices[v].neighbors.push_back({u, weight});
 				if (bidirectional == true)
-                    this -> vertices[u].neighbous.push_back({v, weight});
+                    this -> vertices[u].neighbors.push_back({v, weight});
 				/*esmp::error_report.debug_write
 					("Setting " + std::to_string(u) + " as a neighbour of " + std::to_string(v) + " with weight " + std::to_string(weight));*/
 			}
@@ -101,9 +101,9 @@ namespace esmp
 			*   @param	  None
 			*/
 			std::vector < std::pair < VERTEX_TYPE, int > >
-				getNeighbours (VERTEX_TYPE v)
+				getneighbors (VERTEX_TYPE v)
 			{
-				return this -> vertices[v].neighbous;
+				return this -> vertices[v].neighbors;
 			}
 
 			/**

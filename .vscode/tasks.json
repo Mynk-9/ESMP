@@ -9,7 +9,7 @@
         {
             "type": "shell",
             "label": "g++.exe build active file",
-            "command": "C:\\mingw-w64\\x86_64-8.1.0-win32-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe",
+            "command": "C:\\mingw-w64\\winlibs-mingw-w64-x86_64-9.3.0-7.0.0-r2\\mingw64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${file}",
@@ -17,7 +17,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "C:\\mingw-w64\\x86_64-8.1.0-win32-seh-rt_v6-rev0\\mingw64\\bin"
+                "cwd": "C:\\mingw-w64\\winlibs-mingw-w64-x86_64-9.3.0-7.0.0-r2\\mingw64\\bin"
             },
             "problemMatcher": [
                 "$gcc"

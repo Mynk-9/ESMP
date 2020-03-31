@@ -83,7 +83,7 @@ namespace esmp
 	  *		      		maximum summing sub-array of variable length in a 1-D
 	  *		      		array.
 	  * 	@param		A vector, deque, array(STL) etc. which supports the
-	  *		      		[] operator and has .size() as method.
+	  *		      		[] operator and has .size() as method to get it's size.
 	  */
 	template <typename T>
 	std::pair <int, std::pair <int, int> > kadane (const T& vec)
