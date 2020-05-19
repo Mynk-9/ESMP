@@ -12,6 +12,7 @@
             "command": "C:\\mingw-w64\\winlibs-mingw-w64-x86_64-9.3.0-7.0.0-r2\\mingw64\\bin\\g++.exe",
             "args": [
                 "-g",
+                "-std=c++17",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"

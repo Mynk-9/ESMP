@@ -30,7 +30,7 @@ limitations under the License.
 
 namespace esmp
 {
-    template <typename T>
+    template <class T>
     class node
     {
     public:
@@ -52,7 +52,7 @@ namespace esmp
         }
     };
 
-    template <typename T>
+    template <class T>
     class segment_tree
     {
     public:
