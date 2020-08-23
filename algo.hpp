@@ -60,6 +60,7 @@ namespace esmp
 	{
 		/// check for possible template errors
 		static_assert(std::is_integral<T>::value, "esmp::nextPowerOf2 function requires integral value.");
+		static_assert(sizeof(T) <= 8, "esmp::nextPowerOf2 function takes datatype with size 32 bits of low.");
 
 		--n;
 		n |= n >> 1;
@@ -68,6 +69,15 @@ namespace esmp
 		n |= n >> 8;
 		n |= n >> 16;
 		++n;
+		/**
+		 * Working explanation:
+		 * let's say the binary representation of the number is
+		 * 001100110, after the shifting operations it would become
+		 * 001111111, after the addition it would become
+		 * 010000000, which is the next power of 2.
+		 * This is guaranteed to work with datatypes of size 32 bits 
+		 * and less.
+		 * */
 		return n;
 	}
 }
