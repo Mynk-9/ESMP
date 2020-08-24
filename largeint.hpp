@@ -106,6 +106,30 @@ namespace esmp
         }
 
         /**
+         * @brief Initializer with rValue arg
+         * @param   n  lValue largeint 
+         * */
+        largeint(const largeint &n)
+        {
+            _internal_bin = n._internal_bin;
+            _size = n._size;
+            _bin_changed = true;
+            _print_base10 = n._print_base10;
+        }
+
+        /**
+         * @brief Initializer with rValue arg
+         * @param   n rValue largeint
+         * */
+        largeint(largeint &&n)
+        {
+            _internal_bin = n._internal_bin;
+            _size = n._size;
+            _bin_changed = true;
+            _print_base10 = n._print_base10;
+        }
+
+        /**
          * @brief Sets the base in which the number should be 
          *        should be outputted with a << operator.
          *        The base would be 10 or 2.
