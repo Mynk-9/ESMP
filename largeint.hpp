@@ -40,6 +40,7 @@ namespace esmp
         typedef std::vector<bool> binary;
         binary _internal_bin;
         int _size;
+        bool _bin_changed = false;
 
         void _init_binary()
         {
@@ -77,29 +78,63 @@ namespace esmp
         }
 
     public:
+        /**
+         * @brief Initializer with lValue arg
+         * @param   binary  binary representation of the number as
+         *                  std::vector<bool> lValue
+         * */
         largeint(const binary &binary)
         {
             _internal_bin = binary;
             _init_binary();
+            _bin_changed = true;
         }
+
+        /**
+         * @brief Initializer with lValue arg
+         * @param   binary  binary representation of the number as
+         *                  std::vector<bool> rValue
+         * */
         largeint(const binary &&binary)
         {
             _internal_bin = binary;
             _init_binary();
+            _bin_changed = true;
         }
 
+        /**
+         * @brief Operator overload for =
+         * */
+        void operator=(const largeint &n)
+        {
+            _internal_bin = n._internal_bin;
+            _size = n._size;
+            _bin_changed = true;
+        }
+
+        /**
+         * @brief Operator overload for |
+         * */
         largeint operator|(const largeint &n)
         {
             largeint _largeint(
                 std::move(_operate_on_binary_vectors(_internal_bin, n._internal_bin, [](bool a, bool b) { return a | b; })));
             return _largeint;
         }
+
+        /**
+         * @brief Operator overload for &
+         * */
         largeint operator&(const largeint &n)
         {
             largeint _largeint(
                 std::move(_operate_on_binary_vectors(_internal_bin, n._internal_bin, [](bool a, bool b) { return a & b; })));
             return _largeint;
         }
+
+        /**
+         * @brief Operator overload for ^
+         * */
         largeint operator^(const largeint &n)
         {
             largeint _largeint(
