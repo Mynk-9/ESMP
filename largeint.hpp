@@ -255,7 +255,7 @@ namespace esmp
         /**
          * @brief Operator overload for << out stream
          * */
-        friend std::ofstream &operator<<(std::ofstream &out, const largeint &n)
+        friend std::ofstream &operator<<(std::ostream &out, const largeint &n)
         {
             if (!n._print_base10)
             {
