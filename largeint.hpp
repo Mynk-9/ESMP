@@ -41,6 +41,7 @@ namespace esmp
         binary _internal_bin;
         int _size;
         bool _bin_changed = false;
+        std::vector<short int> _base10;
 
         void _init_binary()
         {
@@ -139,6 +140,75 @@ namespace esmp
         {
             largeint _largeint(
                 std::move(_operate_on_binary_vectors(_internal_bin, n._internal_bin, [](bool a, bool b) { return a ^ b; })));
+            return _largeint;
+        }
+
+        /**
+         * @brief Operator overload for +
+         * */
+        largeint operator+(largeint &n)
+        {
+            int size, tmp;
+            binary *l;
+            if (n._size > _size)
+            {
+                size = n._size;
+                tmp = _size;
+                l = &n._internal_bin;
+            }
+            else
+            {
+                size = _size;
+                tmp = n._size;
+                l = &_internal_bin;
+            }
+            binary _bin(size + 1);
+            int carry = 0;
+            int curr = 0;
+
+            for (int i = 0; i < tmp; ++i)
+            {
+                curr = carry + n._internal_bin[i] + _internal_bin[i];
+                carry = 0;
+                switch (curr)
+                {
+                case 0:
+                    _bin[i] = 0;
+                    break;
+                case 1:
+                    _bin[i] = 1;
+                    break;
+                case 2:
+                    _bin[i] = 0;
+                    carry = 1;
+                    break;
+                case 3:
+                    _bin[i] = 1;
+                    carry = 1;
+                    break;
+                }
+            }
+            for (int i = tmp; i < size; ++i)
+            {
+                curr = carry + (*l)[i];
+                carry = 0;
+                switch (curr)
+                {
+                case 0:
+                    _bin[i] = 0;
+                    break;
+                case 1:
+                    _bin[i] = 1;
+                    break;
+                case 2:
+                    _bin[i] = 0;
+                    carry = 1;
+                    break;
+                }
+            }
+            _bin[size] = carry;
+
+            largeint _largeint(_bin);
             return _largeint;
         }
     };
