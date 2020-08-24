@@ -262,6 +262,8 @@ namespace esmp
                 for (int i = n._size - 1; i >= 0; --i)
                     out << n._internal_bin[i];
             }
+
+            return out;
         }
     };
 
