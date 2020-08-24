@@ -208,8 +208,7 @@ namespace esmp
             }
             _bin[size] = carry;
 
-            largeint _largeint(_bin);
-            return _largeint;
+            return largeint(_bin);
         }
     };
 
