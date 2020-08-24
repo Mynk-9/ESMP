@@ -92,7 +92,7 @@ namespace esmp
         }
 
         /**
-         * @brief Initializer with lValue arg
+         * @brief Initializer with rValue arg
          * @param   binary  binary representation of the number as
          *                  std::vector<bool> rValue
          * */
