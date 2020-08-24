@@ -38,9 +38,11 @@ namespace esmp
     {
     private:
         typedef std::vector<bool> binary;
+
         binary _internal_bin;
         int _size;
         bool _bin_changed = false;
+        bool _print_base10 = true;
         std::vector<short int> _base10;
 
         void _init_binary()
@@ -96,11 +98,23 @@ namespace esmp
          * @param   binary  binary representation of the number as
          *                  std::vector<bool> rValue
          * */
-        largeint(const binary &&binary)
+        largeint(binary &&binary)
         {
             _internal_bin = binary;
             _init_binary();
             _bin_changed = true;
+        }
+
+        /**
+         * @brief Sets the base in which the number should be 
+         *        should be outputted with a << operator.
+         *        The base would be 10 or 2.
+         * @param   set     bool value to set the base 10 if true,
+         *                  2 if false.
+         * */
+        inline void set_output_base10(bool set)
+        {
+            _print_base10 = set;
         }
 
         /**
@@ -111,6 +125,7 @@ namespace esmp
             _internal_bin = n._internal_bin;
             _size = n._size;
             _bin_changed = true;
+            _print_base10 = n._print_base10;
         }
 
         /**
@@ -209,6 +224,20 @@ namespace esmp
             _bin[size] = carry;
 
             return largeint(_bin);
+        }
+
+        /// I/O overloads
+
+        /**
+         * @brief Operator overload for << out stream
+         * */
+        friend std::ofstream &operator<<(std::ofstream &out, const largeint &n)
+        {
+            if (!n._print_base10)
+            {
+                for (int i = n._size - 1; i >= 0; --i)
+                    out << n._internal_bin[i];
+            }
         }
     };
 
