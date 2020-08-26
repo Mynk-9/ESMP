@@ -71,13 +71,54 @@ void test_segment_tree()
     seg_vec.build(seg_vec.root());
     printSegVec(seg_vec);
 
-    cout << "\nsegment tree working correct.\n";
+    cout << "Segment tree working correct.\n";
+}
+
+void test_largeint()
+{
+    cout << "Testing largeint\n";
+
+    // binary number  100110
+    esmp::largeint lint1(vector<bool>{0, 1, 1, 0, 0, 1});
+    // binary number 1100011
+    esmp::largeint lint2(vector<bool>{1, 1, 0, 0, 0, 1, 1});
+
+    esmp::largeint lint3(lint1 + lint2);
+    esmp::largeint lint4(lint1 | lint2);
+    esmp::largeint lint5(lint1 & lint2);
+    esmp::largeint lint6(lint1 ^ lint2);
+    lint3.set_output_base10(false);
+    lint4.set_output_base10(false);
+    lint5.set_output_base10(false);
+    lint6.set_output_base10(false);
+
+    //  100110
+    // 1100011
+
+    cout << lint3 << "\n"; // output should be: 10001001
+    cout << lint4 << "\n"; // output should be: 1100111
+    cout << lint5 << "\n"; // output should be:  100010
+    cout << lint6 << "\n"; // output should be: 1000101
+    cout << "Successfull - 1.\n";
+
+    // binary number:   101
+    // 2's complement:  011
+    // sum:            1000
+    esmp::largeint lint7(vector<bool>{1, 0, 1});
+    esmp::largeint lint8, lint9;
+    lint8 = lint7;
+    lint8.set_negative(true);
+    lint9 = lint7 + lint8;
+    lint9.set_output_base10(false);
+
+    cout << lint9 << "\n";
 }
 
 int main()
 {
     test_integer_xl();
     test_segment_tree();
+    test_largeint();
 
     cout << endl;
 

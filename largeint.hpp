@@ -41,10 +41,12 @@ namespace esmp
 
         binary _internal_bin;
         int _size;
+        bool _negative = false;
         bool _bin_changed = false;
         bool _print_base10 = true;
         std::vector<short int> _base10;
 
+        /// @brief To trim the extra 0
         void _init_binary()
         {
             int i;
@@ -54,6 +56,8 @@ namespace esmp
             _size = i + 1;
             _internal_bin.resize(_size);
         }
+
+        /// @brief general function for &,|,^ operators
         binary _operate_on_binary_vectors(const binary &a, const binary &b, std::function<bool(bool, bool)> operation)
         {
             int itr, size;
@@ -80,7 +84,24 @@ namespace esmp
             return _bin_new;
         }
 
+        /// @brief Generates the base10 equivalent of the binary number
+        void _generate_base_10()
+        {
+            _base10.clear();
+            _base10.reserve(_size / 2);
+
+            // auto _vec_mul_2 = []() -> std::vector<short int> {};
+        }
+
     public:
+        /**
+         * @brief Default constructor
+         * */
+        largeint()
+        {
+            _bin_changed = true;
+        }
+
         /**
          * @brief Initializer with lValue arg
          * @param   binary  binary representation of the number as
@@ -127,6 +148,33 @@ namespace esmp
             _size = n._size;
             _bin_changed = true;
             _print_base10 = n._print_base10;
+        }
+
+        /** @brief Makes the number negative or positive.
+         *         This would convert number to signed
+         *         2's complement. Also know that the signed bit
+         *         is not accesible by programmer. Use the is_negative
+         *         function to check if the number is negative.
+         * */
+        void set_negative(bool neg)
+        {
+            if (_negative == neg)
+                return;
+
+            _negative = neg;
+
+            auto i = _internal_bin.begin();
+            for (; (*i) && i != _internal_bin.end(); ++i)
+                ;
+            for (; i != _internal_bin.end(); ++i)
+                *i = !(*i);
+        }
+
+        /** @brief Checks if the number is negative.
+         * */
+        inline bool is_negative()
+        {
+            return _negative;
         }
 
         /**
